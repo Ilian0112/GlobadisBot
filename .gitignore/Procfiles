@@ -1,1 +1,1 @@
-worker: node globadisbot
+worker: node globadisbot.js
