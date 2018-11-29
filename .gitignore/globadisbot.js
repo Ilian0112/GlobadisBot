@@ -48,7 +48,7 @@ function SaveXp(UserId, Xp){
       var Data = {"Xp": DataTemp.Xp + Xp}
     }
     o.set(Data) // on enregistre
-  }
+  })
 }
 //
 
