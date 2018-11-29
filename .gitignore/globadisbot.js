@@ -21,7 +21,14 @@ bot.on(`ready`, function () {
 //
 
 // Date Base
+var admin = require("firebase-admin");
+console.log("Connecting to Firebase...");
+admin.initializeApp({credential: admin.credential.cert(JSON.parse(process.env.GOOGLE_ACC)),
+                    databaseURL: "https://[LeNomDuProjetSurFireBase].firebaseio.com"});
+console.log("Connected successfully!");
 
+const db = admin.firestore();
+const settings = {timestampsInSnapshots: true};
 //
 
 // Le code 
@@ -111,4 +118,4 @@ bot.on("message", async function(message) {
         break;           }
 });
 
-bot.login(`NTE3NzM4Njg4OTQwMjEyMjY2.DuGnBw.SnLwWppomPk6I6BqRIAfl34vrWg`);
+bot.login(process.env.TOKEN);
