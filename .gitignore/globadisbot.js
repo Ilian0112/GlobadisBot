@@ -17,6 +17,7 @@ const botname = `GlobadisBot`
 // Quand le BOT est start
 bot.on(`ready`, function () {
     console.log(`${botname} connectée !`);
+    bot.users.setAvatar("https://cdn.discordapp.com/attachments/517353858847080451/517802249553051688/Sans_titre1.jpg")
 })
 //
 
