@@ -24,7 +24,7 @@ bot.on(`ready`, function () {
 var admin = require("firebase-admin");
 console.log("Connecting to Firebase...");
 admin.initializeApp({credential: admin.credential.cert(JSON.parse(process.env.GOOGLE_ACC)),
-                    databaseURL: "https://[LeNomDuProjetSurFireBase].firebaseio.com"});
+                    databaseURL: "https://globadisbot-db.firebaseio.com"});
 console.log("Connected successfully!");
 
 const db = admin.firestore();
