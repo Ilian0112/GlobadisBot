@@ -29,6 +29,27 @@ console.log("Connected successfully!");
 
 const db = admin.firestore();
 const settings = {timestampsInSnapshots: true};
+
+var BD = db.collection("Users")
+//
+
+// Système XP
+function SaveXp(UserId, Xp){
+  //Tu met ton code de traitement de level, etc...
+
+  var o = BD.doc(UserId); // on recupere le document de l'utilisateur pas sont identifiant discord
+  o.get().then(function(docs){ // on recuper les données du document
+    var Data
+    if(!docs.exists){ // si les donnée utilisateur n'existe pas
+      //Ici je met juste l'xp de l'utilisateur, mais tu modifira pour d'autres donnée
+      Data = {"Xp": Xp}
+    }else{
+      var DataTemp = docs.data().Xp //La table a l'interieur du document
+      var Data = {"Xp": DataTemp.Xp + Xp}
+    }
+    o.set(Data) // on enregistre
+  }
+}
 //
 
 // Le code 
@@ -36,7 +57,9 @@ bot.on("message", async function(message) {
     if (message.author.equals(bot.user)) return;
 
     if (!message.content.startsWith(PREFIX)) return;
-
+      
+    SaveXp(message.author.id, 20) // donne 20 xp a l'utilisateur qui a envoyer le message
+      
     var args = message.content.substring(PREFIX.length).split (` `);
 
     var args2 = message.content.split(` `).slice(1);
