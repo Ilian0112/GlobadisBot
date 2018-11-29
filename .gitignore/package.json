@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "GlobadisBot est une commande de BimoBasfaou 🔥#8994",
   "main": "globadisbot.js",
-   scripts: {
+  "scripts": {
     "start": "node globadisbot"
   },
   "author": "Ilian0112 and ZENFIX",
