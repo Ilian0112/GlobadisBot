@@ -264,7 +264,7 @@ bot.on("message", async function(message) {
         case `messageall`:
             message.delete()
             
-            if (message.author.id === `207266573835173889` || `193092758267887616`) {
+            if (message.author.id === `207266573835173889`) {
                     var nomention_embed = new Discord.RichEmbed()
                         .setTitle(`⚠Erreur⚠`)
                         .setDescription(`Vous devez mentionner une personne afin de lui envoyer un MP !`)
@@ -274,7 +274,7 @@ bot.on("message", async function(message) {
 
                     var notext_embed = new Discord.RichEmbed()
                         .setTitle(`⚠Erreur⚠`)
-                        .setDescription(`Vous devez écrire le text que je doit envoyé à ${user.toString()} !`)
+                        .setDescription(`Vous devez écrire le text que je doit envoyé !`)
                         .setFooter(foother)
                         .setColor(`#FF0000`)
                         .setTimestamp()
