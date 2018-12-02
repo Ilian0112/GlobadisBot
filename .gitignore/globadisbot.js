@@ -8,7 +8,7 @@ const bot = new Discord.Client();
 //
 
 // BOT INFO
-const version = `V.0.0.1`
+const version = `V.0.0.4`
 const PREFIX = `globadis.`
 const botname = `GlobadisBot`
 //
@@ -240,7 +240,7 @@ bot.on("message", async function(message) {
 
             if(!message.member.hasPermission(`BAN_MEMBERS`)) return message.channel.send(noperm_embed);
             let IDBanned = message.content.split(" ").slice(1);
-            let suffix_IDBanned = IDBanned.join('%20')
+            let suffix_IDBanned = IDBanned.join(' ')
             if(!suffix_IDBanned) return message.channel.send(noid_embed)
 
                 var unban_embed = new Discord.RichEmbed()
@@ -261,6 +261,36 @@ bot.on("message", async function(message) {
             
         break;       
 
+        case `messageall`:
+            message.delete()
+            
+            if (message.author.id === `207266573835173889` || `193092758267887616`) {
+                    var nomention_embed = new Discord.RichEmbed()
+                        .setTitle(`⚠Erreur⚠`)
+                        .setDescription(`Vous devez mentionner une personne afin de lui envoyer un MP !`)
+                        .setFooter(foother)
+                        .setColor(`#FF0000`)
+                        .setTimestamp()
+
+                    var notext_embed = new Discord.RichEmbed()
+                        .setTitle(`⚠Erreur⚠`)
+                        .setDescription(`Vous devez écrire le text que je doit envoyé à ${user.toString()} !`)
+                        .setFooter(foother)
+                        .setColor(`#FF0000`)
+                        .setTimestamp()
+
+                var member = message.mentions.members.first();
+                if(message.mentions.users.size < 1) return message.channel.send(nomention_embed)
+
+                let messageall = message.content.split(` `).slice(2);
+                let suffix_messageall = messageall.join(` `)
+                if(!suffix_messageall) return message.channel.send(notext_embed)
+                message.guild.member(user).send(suffix_messageall)
+            }else {       
+                message.channel.send(noperm_embed)
+            }
+        break;
+
         case `help`:
             if(message.author.bot) return message.channel.send(`Erreur, les bot ne peuve utiliser mes commandes.`)
                 message.delete()
@@ -276,6 +306,7 @@ bot.on("message", async function(message) {
                             .addBlankField()
                             .addField(PREFIX + `level`, `**[OFF]** | Cette commande vous permet de voir votre niveau ou celui d'un autre membre.`)
                             .addField(PREFIX + `help`, `Cette commande vous permet d'affichier l'aide.`)
+                            .addField(PREFIX + `messageall`, `Cette commande permet à BimoBasfaou d'envoyer un message privée à la personne mentionnée.`)
                         .setColor(`#53A338`)
                         .setFooter(foother)
                 message.channel.send(help_embed)
