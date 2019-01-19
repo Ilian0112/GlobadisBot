@@ -1,5 +1,6 @@
 // MODULE
 const Discord = require(`discord.js`);
+const ms = require(`ms`);
 //
 
 // NEW CLIENT ( les deux pour pas ce prendre la tête )
@@ -120,6 +121,88 @@ bot.on("message", async function(message) {
        
         case `tempmute`:
             message.delete()
+            let tomute = message.guild.member(message.mentions.users.first())
+            let mutetime = message.content.split(" ").slice(2).join(" ");
+
+                var norolemute_embed = new Discord.RichEmbed()
+                    .setTitle(`⚠Erreur⚠`)
+                    .setDescription(`Le rôle __**Mute**__ est introuvable !`)
+                    .setFooter(foother)
+                    .setColor(`#FF0000`)
+                    .setTimestamp()
+
+                var nomention_embed = new Discord.RichEmbed()
+                    .setTitle(`⚠Erreur⚠`)
+                    .setDescription(`Vous devez mentionner une personne afin de la réduire au silence !`)
+                    .setFooter(foother)
+                    .setColor(`#FF0000`)
+                    .setTimestamp()
+                    
+
+                var notime_embed = new Discord.RichEmbed()
+                    .setTitle(`⚠Erreur⚠`)
+                    .setDescription(`Vous devez indiquer le temps voulu afin de réduire la personne au silence !`)
+                    .setFooter(foother)
+                    .setColor(`#FF0000`)
+                    .setTimestamp()
+
+                var nohastimedmute_embed = new Discord.RichEmbed()
+                    .setAuthor(`Sanction : TempMute`)
+                        .addField(`Modérateur :`, `<@${message.author.id}>`)
+                        .addField(`Utilisateur :`, `<@${tomute.id}>`, true)
+                        .addField(`ID Utilisateur :`, `${tomute.id}`)
+                        .addField(`Temps :`, `${mutetime}`)
+                    .setFooter(foother)
+                    .setTimestamp()
+                    .setColor(`#FF0000`)
+
+                var nohastunmuted_embed = new Discord.RichEmbed()
+                        .setAuthor(`Sanction révoquer : TempMute`)
+                        .addField(`Modérateur :`, `<@${message.author.id}>`)
+                        .addField(`Utilisateur :`, `<@${tomute.id}>`, true)
+                        .addField(`ID Utilisateur :`, `${tomute.id}`)
+                        .addField(`Temps du mute`, `${mutetime}`)
+                    .setFooter(foother)
+                    .setTimestamp()
+                    .setColor(`#34C924`)
+            
+            if(!tomute) return message.channel.send(nomention_embed)
+
+            if(!message.member.hasPermission("MUTE_MEMBERS")) return message.channel.send(noperm_embed)
+             // if(tomute.hasPermission("MUTE_MEMBERS")) return message.channel.send(" **Vous ne pouvez pas réduire au silence un membre du Staff !** ")
+            
+            
+            if(!mutetime) return message.channel.send(notime_embed)
+            if(!modlog) return message.channel.send(nologschannel_embed);  
+            let muterole = message.guild.roles.find("name", "Mute")
+            if(!muterole){
+                try{
+                    muterole = await message.guild.createRole({
+                        name: "Mute",
+                        color: "#339999",
+                        permissions: ['READ_MESSAGES'],
+                    })
+                    message.guild.channels.forEach(async (channel, id) => {
+                        await channel.overwritePermissions(muterole, {
+                            SEND_MESSAGES: false,
+                            ADD_REACTIONS: false
+                        });
+                    });
+                }catch(e){
+                  console.log(e.stack);
+                }
+              }
+              (tomute.addRole(muterole));
+            
+              modlog.send(nohastimedmute_embed)
+            
+             
+            
+            
+              setTimeout(function(){
+            tomute.removeRole(muterole.id);
+            modlog.send(nohastunmuted_embed)
+              }, ms (mutetime));
 
         break;
 
@@ -258,13 +341,13 @@ bot.on("message", async function(message) {
 
         case `level`:
             message.delete()
-            
+
         break;       
 
         case `messageall`:
             message.delete()
             
-            if (message.author.id === `207266573835173889`) {
+            if (message.author.id === `207266573835173889` || `193092758267887616`) {
                     var nomention_embed = new Discord.RichEmbed()
                         .setTitle(`⚠Erreur⚠`)
                         .setDescription(`Vous devez mentionner une personne afin de lui envoyer un MP !`)
@@ -274,7 +357,7 @@ bot.on("message", async function(message) {
 
                     var notext_embed = new Discord.RichEmbed()
                         .setTitle(`⚠Erreur⚠`)
-                        .setDescription(`Vous devez écrire le text que je doit envoyé !`)
+                        .setDescription(`Vous devez écrire le text que je doit envoyé à ${user.toString()} !`)
                         .setFooter(foother)
                         .setColor(`#FF0000`)
                         .setTimestamp()
