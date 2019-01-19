@@ -381,7 +381,7 @@ bot.on("message", async function(message) {
                     var help_embed = new Discord.RichEmbed()
                         .setTitle(`Menu d'aide`)
                             .addField(PREFIX + `mute`, `Cette commande vous permet de réduire au silence une personne.`)
-                            .addField(PREFIX + `tempmute`, `**[OFF]** | Cette commande vous permet de réduire au silence une personne durant la durée de votre choix.`)
+                            .addField(PREFIX + `tempmute`, `Cette commande vous permet de réduire au silence une personne durant la durée de votre choix.`)
                             .addField(PREFIX + `unmute`, `Cette commande vous permet de rendre la possibilité de parler à une personne réduite au silence.`)
                             .addField(PREFIX + `kick`, `Cette commande vous permet d'expulser une personne du serveur.`)
                             .addField(PREFIX + `ban`, `Cette commande vous permet de bannir une personne du serveur.`)
