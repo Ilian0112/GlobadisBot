@@ -10,7 +10,7 @@ const bot = new Discord.Client();
 
 // BOT INFO
 const version = `V.0.0.4`
-const PREFIX = `globadis.`
+const PREFIX = `$`
 const botname = `GlobadisBot`
 //
 
